@@ -1,0 +1,124 @@
+/* Adjust button position */
+.toggle-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #298bf4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-icon {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: -2px;
+  background: transparent;
+  border: none;
+  font-size: 10px;
+  cursor: pointer;
+  color: #dc3545;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.0);
+}
+
+/* Chatbot container styles */
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 750px;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  display: none;
+  transition: max-height 0.3s ease;
+}
+
+.chatbot-container.open {
+  display: block;
+  max-height: 100vh;
+}
+
+.chatbot-container::-webkit-scrollbar {
+  display: none;
+}
+
+.chatbot-container {
+  -ms-overflow-style: none;
+}
+
+/* Chat message container */
+.react-chatbot-kit-chat-message-container {
+  background-color: rgb(224, 225, 243);
+  padding: 10px;
+  height: 411px;
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+}
+
+.react-chatbot-kit-chat-message-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Chat input styles */
+.react-chatbot-kit-chat-input {
+  background-color: #eee;
+ 
+  outline: none;
+  height: 2vh;
+}
+
+.react-chatbot-kit-chat-input-form{
+  height: 36px;
+}
+
+.react-chatbot-kit-chat-btn-send{
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 7vh;
+}
+
+/* Bot message styles */
+.react-chatbot-kit-chat-bot-message {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 9px;
+}
+
+.react-chatbot-kit-chat-bot-message{
+  margin-left: 4px;
+  border-top-left-radius:0;
+  font-size: 13px;
+  width: 85%;
+}
+
+.react-chatbot-kit-user-chat-message{
+  border-top-right-radius:0;
+  font-size: 13px;
+}
+
+/* Hide avatar containers */
+.react-chatbot-kit-chat-bot-avatar-container,
+.react-chatbot-kit-user-avatar-container {
+  display: none;
+}
+.react-chatbot-kit-user-chat-message-arrow,
+.react-chatbot-kit-chat-bot-message-arrow{
+  display: none;
+}
+
+.react-chatbot-kit-chat-bot-message-container,
+.react-chatbot-kit-user-chat-message-container{
+  margin: 6px 0px;
+}

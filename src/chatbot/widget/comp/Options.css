@@ -1,0 +1,17 @@
+.options-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
+  }
+  
+  .option-button {
+    margin: 3.5px;
+    border-radius: 8px;
+    padding: 3.5px;
+    color: black;
+    border-color: rgb(101, 128, 244);
+    background: rgba(235, 235, 235, 1);
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }

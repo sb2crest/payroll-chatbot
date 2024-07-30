@@ -1,0 +1,57 @@
+.signup-form-container {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: linear-gradient(to bottom,#26b226,#80d280);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group .form-control {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group .is-invalid {
+    border-color: #dc3545; /* Red border for invalid input */
+}
+
+.submit-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.submit-button:disabled {
+    background-color: #6c757d; /* Gray out button when disabled */
+    cursor: not-allowed;
+}
+
+.invalid-feedback {
+    color: #dc3545; /* Red color for error message */
+    font-size: 14px;
+    margin-top: 5px;
+}

@@ -1,0 +1,23 @@
+.App {
+    text-align: center;
+    font-family: Arial, sans-serif; /* Adjust font as needed */
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+  }
+  
+  .App-header h1 {
+    margin: 0;
+  }
+  
+  .App-content {
+    padding: 20px;
+  }
+  
+
+  
+  /* Additional global styles can be added here */
+  
