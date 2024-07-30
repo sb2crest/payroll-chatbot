@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI('AIzaSyAkhegVAo36BmLIaqvYG7gEyngApmt65CY');
+const genAI = new GoogleGenerativeAI('');
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const sendMessage = async (prompt) => {
