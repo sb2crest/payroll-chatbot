@@ -1,14 +1,17 @@
 import { sendMessage } from "./service/GeminiApi";
 
 class ActionProvider {
-  constructor(createChatBotMessage, setStateFunc) {
+  constructor(createChatBotMessage, setStateFunc, userType) {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;
+    this.userType = userType;
   }
 
   handleAddEmployee = () => {
     const message = this.createChatBotMessage(
-      "Fantastic. Please fill in the employee details below.",
+      this.userType === 'Manager'
+        ? "Fantastic, Manager. Please fill in the employee details below."
+        : "Fantastic. Please fill in the employee details below.",
       { widget: "addEmployeeButton" }
     );
 
@@ -17,7 +20,9 @@ class ActionProvider {
 
   handleGetEmployee = () => {
     const message = this.createChatBotMessage(
-      "How would you like to search for the employee?",
+      this.userType === 'Manager'
+        ? "How would you like to search for the employee, Manager?"
+        : "How would you like to search for the employee?",
       { widget: "employeeOptions" }
     );
 
@@ -61,30 +66,13 @@ class ActionProvider {
     this.addMessageToState(message);
   };
 
-  handleJoke = () => {
-    const jokes = [
-      "I asked my dog what’s two minus two. He said nothing.",
-      "Did you hear about the claustrophobic astronaut? He just needed a little space!",
-      "Why don’t skeletons fight each other? They don’t have the guts.",
-      "I told my wife she was drawing her eyebrows too high. She looked surprised!",
-      "What do you call fake spaghetti? An impasta!",
-      "Why did the scarecrow win an award? Because he was outstanding in his field!"
-    ];
-
-    const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-
-    const message = this.createChatBotMessage(randomJoke);
-
-    this.addMessageToState(message);
-  };
-
   handleThanks = () => {
     const message = this.createChatBotMessage("You're welcome, and stay safe!");
     this.addMessageToState(message);
   };
 
   handleGreet = () => {
-    const message = this.createChatBotMessage("Hello, Akash Birooo!");
+    const message = this.createChatBotMessage(`Hello, ${this.userType}!`);
     this.addMessageToState(message);
   };
 

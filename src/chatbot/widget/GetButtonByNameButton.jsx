@@ -1,5 +1,5 @@
 import React from 'react';
-import EmployeeSearch from './utils/EmployeeSearch';
+import EmployeeSearch from '../utils/EmployeeSearch';
 
 const GetEmployeeByNameButton = () => {
   return (

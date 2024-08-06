@@ -1,17 +1,33 @@
 .options-container {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    flex-wrap: wrap;
-  }
-  
-  .option-button {
-    margin: 3.5px;
-    border-radius: 8px;
-    padding: 3.5px;
-    color: black;
-    border-color: rgb(101, 128, 244);
-    background: rgba(235, 235, 235, 1);
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option-button {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  padding: 10px;
+  background-color:rgba(245, 245, 245, 1);
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.option-button:hover {
+  background-color: #e1e1e1;
+}
+
+.option-content {
+  display: flex;
+  align-items: center;
+}
+
+.option-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}

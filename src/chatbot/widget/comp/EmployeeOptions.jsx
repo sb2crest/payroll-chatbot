@@ -21,7 +21,7 @@ const EmployeeOptions = (props) => {
     </button>
   ));
 
-  return <div className="options-container">{buttonsMarkup}</div>;
+  return <div className="options-container" style={{flexDirection:'row',justifyContent:'center',columnGap:'12px'}}>{buttonsMarkup}</div>;
 };
 
 export default EmployeeOptions;

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import Chatbot from 'react-chatbot-kit';
 import 'react-chatbot-kit/build/main.css';
-import config from '../chatbot/chatbotConfig'; 
-import MessageParser from '../chatbot/MessageParser';
-import ActionProvider from '../chatbot/ActionProvider'; 
+
 import { IoCloseCircleOutline } from "react-icons/io5";
 import './ChatbotComponent.css'; 
 import { motion, AnimatePresence } from 'framer-motion';
 import botImage from '../chatbot/widget/icons/bots.svg';
+import ChatbotWrapper from '../chatbot/ChatbotWrapper';
 
 const ChatbotComponent = () => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
@@ -40,10 +38,7 @@ const ChatbotComponent = () => {
             <button className="close-button" onClick={closeChatbot}>
               <IoCloseCircleOutline style={{ fontSize: "30px" }} />
             </button>
-            <Chatbot
-              config={config}
-              messageParser={MessageParser}
-              actionProvider={ActionProvider}
+            <ChatbotWrapper userType ="Manager"
             />
           </motion.div>
         )}

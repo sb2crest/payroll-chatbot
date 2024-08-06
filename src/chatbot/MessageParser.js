@@ -1,4 +1,3 @@
-// MessageParser.js
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
@@ -13,14 +12,6 @@ class MessageParser {
       lowerCaseMessage.includes("do for me")
     ) {
       return this.actionProvider.handleOptions();
-    }
-
-    if (
-      lowerCaseMessage.includes("joke") ||
-      lowerCaseMessage.includes("jokes") ||
-      lowerCaseMessage.includes("funny")
-    ) {
-      return this.actionProvider.handleJoke();
     }
 
     if (lowerCaseMessage.includes("thanks") || lowerCaseMessage.includes("thank you")) {

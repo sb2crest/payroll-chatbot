@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./utils/styles.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import CustomSelect from '../utils/CustomSelect';
+import '../utils/styles.css';
 
 const AddEmployeeButton = (props) => {
   const { actionProvider } = props;
@@ -34,8 +35,7 @@ const AddEmployeeButton = (props) => {
     checkFormValidity();
   }, [formData, errors]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (name, value) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
     validateField(name, value);
   };
@@ -108,7 +108,7 @@ const AddEmployeeButton = (props) => {
   return (
     <form onSubmit={handleSubmit} className="form">
       <div className="formGroup">
-        <label className="label firstNameLabel">Name:</label>
+        <label className="nameLabel">Name:</label>
         <div className="nameFields" style={{ display: "flex" }}>
           <div className="formGroup">
             <input
@@ -116,7 +116,7 @@ const AddEmployeeButton = (props) => {
               name="firstName"
               placeholder="First"
               value={formData.firstName}
-              onChange={handleChange}
+              onChange={(e) => handleChange('firstName', e.target.value)}
               className={`input ${errors.firstName ? "is-invalid" : ""}`}
               required
             />
@@ -130,7 +130,7 @@ const AddEmployeeButton = (props) => {
               name="lastName"
               placeholder="Last"
               value={formData.lastName}
-              onChange={handleChange}
+              onChange={(e) => handleChange('lastName', e.target.value)}
               className={`input ${errors.lastName ? "is-invalid" : ""}`}
               required
             />
@@ -144,7 +144,7 @@ const AddEmployeeButton = (props) => {
           type="email"
           name="email"
           value={formData.email}
-          onChange={handleChange}
+          onChange={(e) => handleChange('email', e.target.value)}
           className={`input ${errors.email ? "is-invalid" : ""}`}
           required
         />
@@ -156,7 +156,7 @@ const AddEmployeeButton = (props) => {
           type="text"
           name="phoneNumber"
           value={formData.phoneNumber}
-          onChange={handleChange}
+          onChange={(e) => handleChange('phoneNumber', e.target.value)}
           className={`input ${errors.phoneNumber ? "is-invalid" : ""}`}
           required
         />
@@ -170,7 +170,7 @@ const AddEmployeeButton = (props) => {
           type="text"
           name="sinNumber"
           value={formData.sinNumber}
-          onChange={handleChange}
+          onChange={(e) => handleChange('sinNumber', e.target.value)}
           className={`input ${errors.sinNumber ? "is-invalid" : ""}`}
           required
         />
@@ -182,7 +182,7 @@ const AddEmployeeButton = (props) => {
           type="text"
           name="role"
           value={formData.role}
-          onChange={handleChange}
+          onChange={(e) => handleChange('role', e.target.value)}
           className={`input ${errors.role ? "is-invalid" : ""}`}
           required
         />
@@ -190,35 +190,24 @@ const AddEmployeeButton = (props) => {
       </div>
       <div className="formGroup">
         <label className="label">Pay Schedule:</label>
-        <select
-          name="paySchedule"
+        <CustomSelect
+          options={["WEEKLY", "BI_WEEKLY", "MONTHLY"]}
           value={formData.paySchedule}
-          onChange={handleChange}
-          className={`input ${errors.paySchedule ? "is-invalid" : ""}`}
-          required
-        >
-          <option value="">Select Pay Schedule</option>
-          <option value="WEEKLY">WEEKLY</option>
-          <option value="BI_WEEKLY">BIWEEKLY</option>
-          <option value="MONTHLY">MONTHLY</option>
-        </select>
+          onChange={(value) => handleChange('paySchedule', value)}
+          placeholder="Select Pay Schedule"
+        />
         {errors.paySchedule && (
           <div className="error">{errors.paySchedule}</div>
         )}
       </div>
       <div className="formGroup">
         <label className="label">Pay Rate:</label>
-        <select
-          name="payRate"
+        <CustomSelect
+          options={["HOURLY", "DAILY"]}
           value={formData.payRate}
-          onChange={handleChange}
-          className={`input ${errors.payRate ? "is-invalid" : ""}`}
-          required
-        >
-          <option value="">Select Pay Rate</option>
-          <option value="HOURLY">HOURLY</option>
-          <option value="DAILY">DAILY</option>
-        </select>
+          onChange={(value) => handleChange('payRate', value)}
+          placeholder="Select Pay Rate"
+        />
         {errors.payRate && <div className="error">{errors.payRate}</div>}
       </div>
       <button type="submit" className="button" disabled={!formValid}>

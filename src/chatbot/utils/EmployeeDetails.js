@@ -31,8 +31,9 @@ const EmployeeDetails = ({ employee, newWorkingHours, handleDateChange, handleWo
         name="dailyCompanyWorkingHours"
         value={newWorkingHours.dailyCompanyWorkingHours}
         onChange={handleWorkingHoursChange}
-        placeholder="Enter Daily Company Working Hours"
+        placeholder="Daily Working Hours"
         className="input"
+        style={{backgroundColor:"white", border:"solid 1px black", width:"88%"}}
       />
       <button onClick={handleUpdateWorkingHours} className="button">Update Working Hours</button>
     </div>
