@@ -17,7 +17,6 @@
     "appwrite": "^15.0.0",
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",
-    "dotenv": "^16.4.5",
     "file-saver": "^2.0.5",
     "framer-motion": "^11.3.8",
     "pdf-lib": "^1.17.1",
