@@ -25,6 +25,9 @@ class MessageParser {
     if (lowerCaseMessage.includes("hi ")) {
       return this.actionProvider.handleGreet();
     }
+    if (lowerCaseMessage.includes("generate")) {
+      return this.actionProvider.handleGenerateForm16();
+    }
     return this.actionProvider.handleAIMessage(lowerCaseMessage);
   }
 }

@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import botImage from '../chatbot/widget/icons/bots.svg';
 import ChatbotWrapper from '../chatbot/ChatbotWrapper';
 
-const ChatbotComponent = () => {
+const ChatbotComponent = ({userType}) => {
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const toggleChatbot = () => {
@@ -38,8 +38,7 @@ const ChatbotComponent = () => {
             <button className="close-button" onClick={closeChatbot}>
               <IoCloseCircleOutline style={{ fontSize: "30px" }} />
             </button>
-            <ChatbotWrapper userType ="Manager"
-            />
+            <ChatbotWrapper userType ={userType}/>
           </motion.div>
         )}
       </AnimatePresence>

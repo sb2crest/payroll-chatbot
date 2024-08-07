@@ -92,10 +92,12 @@ const ManagerLogin = () => {
     e.preventDefault();
     // Mock login logic
     if (username === 'MGR4' && password === 'pass') {
-      navigate('/home');
+      navigate('/home', { state: { userType: 'Manager' } });
+    } else if (username === 'EMP01' && password === 'pass') {
+      navigate('/home', { state: { userType: 'User' } });
     } else {
       setError('Invalid credentials');
-    }
+    }    
   };
 
   return (

@@ -1,4 +1,5 @@
 import { sendMessage } from "./service/GeminiApi";
+import { generateForm16PDF } from "./utils/DownloadForm16";
 
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc, userType) {
@@ -88,6 +89,18 @@ class ActionProvider {
     } catch (error) {
       console.error('Error handling AI message:', error);
       const errorMessage = this.createChatBotMessage('Error fetching response.');
+      this.addMessageToState(errorMessage);
+    }
+  };
+
+  handleGenerateForm16 = async () => {
+    try {
+      const result = await generateForm16PDF();
+      const message = this.createChatBotMessage(result.message);
+      this.addMessageToState(message);
+    } catch (error) {
+      console.error('Error handling generateForm16PDF:', error);
+      const errorMessage = this.createChatBotMessage('Error generating Form 16 PDF.');
       this.addMessageToState(errorMessage);
     }
   };

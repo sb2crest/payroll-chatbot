@@ -4,15 +4,16 @@ import MessageParser from './MessageParser';
 import AddEmployeeButton from './widget/AddEmployeeButton';
 import GetEmployeeByIDButton from './widget/GetEmployeeByIDButton';
 import Options from './widget/comp/Options';
-import EmployeeOptions from './widget/comp/EmployeeOptions';
 import GetEmployeeByNameButton from './widget/GetButtonByNameButton';
 import headerImage from './widget/icons/chat.svg';
+import DownloadForm16Button from './widget/DownloadForm16Button';
+import ManagerOptions from './widget/comp/ManagerOptions';
 
 const config = (userType) => {
 
-  const botName = userType === 'Manager' ? "Manager HR Bot" : "Employee HR Bot";
+  const botName = userType === 'Manager' ? "Manager HR Bot" : "Employee Bot";
 
-  const initialMessages = userType === 'User'
+  const initialMessages = userType === 'Manager'
     ? [
         createChatBotMessage("Welcome User! How can I assist you today?"),
         createChatBotMessage("Please use the navigation below to get started.", { widget: "options" })
@@ -25,11 +26,7 @@ const config = (userType) => {
   const widgets = [
     {
       widgetName: "options",
-      widgetFunc: (props) => <Options {...props} userType={userType} />,
-    },
-    {
-      widgetName: "addEmployeeButton",
-      widgetFunc: (props) => <AddEmployeeButton {...props} />,
+      widgetFunc: (props) => <Options {...props} userType={userType}/>,
     },
     {
       widgetName: "getEmployeeButtonByID",
@@ -38,19 +35,25 @@ const config = (userType) => {
     {
       widgetName: "getEmployeeButtonByName",
       widgetFunc: (props) => <GetEmployeeByNameButton {...props} />,
-    }
+    },
   ];
 
   if (userType === 'Manager') {
+    widgets.push(
+      {
+        widgetName: "employeeOptions",
+        widgetFunc: (props) => <ManagerOptions {...props} />,
+      },
+      {
+        widgetName: "addEmployeeButton",
+        widgetFunc: (props) => <AddEmployeeButton {...props} />,
+      }
+    );
+  } else if (userType === 'User') {
     widgets.push({
-      widgetName: "employeeOptions",
-      widgetFunc: (props) => <EmployeeOptions {...props} userType={userType} />,
-    },
-    {
-      widgetName: "addEmployeeButton",
-      widgetFunc: (props) => <AddEmployeeButton {...props} />,
-    },
-  );
+      widgetName: "generateForm16Button",
+      widgetFunc: (props) => <DownloadForm16Button {...props} userType={userType}/>,
+    });
   }
 
   return {

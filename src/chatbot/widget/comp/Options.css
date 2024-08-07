@@ -7,7 +7,7 @@
 .option-button {
   display: flex;
   align-items: center;
-  margin: 5px 0;
+  margin: 5px;
   padding: 10px;
   background-color:rgba(245, 245, 245, 1);
   border: none;

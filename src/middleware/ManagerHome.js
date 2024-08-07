@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ChatbotComponent from './ChatbotComponent';
 import styled from 'styled-components';
 
@@ -54,10 +54,11 @@ const LogoutButton = styled.button`
 
 const ManagerHome = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const userType = location.state?.userType || 'Unknown';
 
   const handleLogout = () => {
-    // Logic to clear user session or token can be added here
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/');
   };
 
   return (
@@ -66,8 +67,8 @@ const ManagerHome = () => {
         <h1>Welcome to My App</h1>
       </Header>
       <MainContent>
-        <Title>Manager Page</Title>
-        <ChatbotComponent />
+        <Title>{userType === 'Manager' ? 'Manager Page' : 'User Page'}</Title>
+        <ChatbotComponent userType={userType} />
         <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
       </MainContent>
     </HomeContainer>

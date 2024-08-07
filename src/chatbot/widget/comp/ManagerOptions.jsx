@@ -1,7 +1,7 @@
 import React from "react";
 import "./Options.css";
 
-const EmployeeOptions = (props) => {
+const ManagerOptions = (props) => {
   const options = [
     {
       text: "By ID",
@@ -24,4 +24,4 @@ const EmployeeOptions = (props) => {
   return <div className="options-container" style={{flexDirection:'row',justifyContent:'center',columnGap:'12px'}}>{buttonsMarkup}</div>;
 };
 
-export default EmployeeOptions;
+export default ManagerOptions;
