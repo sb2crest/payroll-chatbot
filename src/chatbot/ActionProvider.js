@@ -79,11 +79,7 @@ class ActionProvider {
 
   handleAIMessage = async (messages) => {
     try {
-      console.log('AI message:', messages);
       const response = await sendMessage(messages);
-      console.log('API response:', response);
-      console.log('data', response.response.candidates[0].content.parts[0].text);
-  
       const message = this.createChatBotMessage(response.response.candidates[0].content.parts[0].text);
       this.addMessageToState(message);
     } catch (error) {

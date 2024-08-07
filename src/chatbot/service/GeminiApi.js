@@ -2,8 +2,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = process.env.REACT_APP_GOOGLE_GENERATIVE_AI_KEY;
 
-console.log("key:", apiKey);
-
 if (!apiKey) {
   throw new Error('API key is missing');
 }
@@ -17,7 +15,6 @@ export const sendMessage = async (prompt) => {
     const result = await model.generateContent( prompt );
     return result;
   } catch (error) {
-    console.error('Error generating content:', error);
     throw error;
   }
 };

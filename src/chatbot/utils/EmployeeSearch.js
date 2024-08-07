@@ -69,7 +69,6 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
         setSelectedEmployee(null);
       }
     } catch (err) {
-      console.log("error: ",err);
       setError("Error fetching employee data. Please check the search criteria and try again.");
       setEmployeeData([]);
       setSelectedEmployee(null);
@@ -96,7 +95,6 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
       setUpdateMessage("");
       setSelectedEmployee(employee);
     } catch (err) {
-       console.log("error: ",err);
       setError("Error fetching employee data. Please check the ID and try again.");
       setEmployeeData([]);
       setSelectedEmployee(null);
