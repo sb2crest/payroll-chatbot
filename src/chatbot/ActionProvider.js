@@ -91,14 +91,29 @@ class ActionProvider {
 
   handleGenerateForm16 = async () => {
     try {
-      const result = await generateForm16PDF();
-      const message = this.createChatBotMessage(result.message);
+      
       this.addMessageToState(message);
     } catch (error) {
       console.error('Error handling generateForm16PDF:', error);
       const errorMessage = this.createChatBotMessage('Error generating Form 16 PDF.');
       this.addMessageToState(errorMessage);
     }
+  };
+
+  handleTimeSheet = async () => {
+      const message = this.createChatBotMessage(
+        "These are the Timesheet available.",
+        { widget: "getEmployeeTimeSheet" }
+      );
+      this.addMessageToState(message);
+  };
+
+  handleCheckIn = async () => {
+      const message = this.createChatBotMessage(
+        "You Can Check-In Below",
+        { widget: "getEmployeeCheckIn" }
+      );
+      this.addMessageToState(message);
   };
   
   addMessageToState = (message) => {

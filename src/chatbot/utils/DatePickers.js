@@ -18,6 +18,7 @@ const DatePickers = ({ newWorkingHours, handleDateChange }) => {
         onChange={(date) => handleDateChange(date, 'endDate')}
         dateFormat="yyyy-MM-dd"
         placeholderText="Select End Date"
+        disabled
         className="custom-datepicker"
       />
     </div>

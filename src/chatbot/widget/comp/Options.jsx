@@ -3,6 +3,7 @@ import "./Options.css";
 import addEmployeeIcon from "../icons/addIcon.svg";
 import getEmployeeIcon from "../icons/getIcon.svg";
 import generateIcon from "../icons/pdf.svg";
+import timeSheet from "../icons/getIcon.svg";
 
 const Options = (props) => {
   const { userType } = props;
@@ -29,6 +30,20 @@ const Options = (props) => {
           handler: props.actionProvider.handleGenerateForm16,
           id: 1,
         },
+        {
+          text: "Get Timesheet",
+          icon: timeSheet,
+          handler: props.actionProvider.handleTimeSheet,
+          id: 2,
+        },
+        {
+          text: "Check-In",
+          icon: timeSheet,
+          handler: props.actionProvider.handleCheckIn,
+          id: 3,
+        },
+
+        
       ];
 
   const buttonsMarkup = options.map((option) => (

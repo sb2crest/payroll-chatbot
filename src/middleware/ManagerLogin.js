@@ -103,7 +103,7 @@ const ManagerLogin = () => {
   return (
     <LoginPage>
       <FormContainer initial="hidden" animate="visible" variants={formVariants}>
-        <Title>Manager Login</Title>
+        <Title>Login with Creds</Title>
         <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Input
             type="text"

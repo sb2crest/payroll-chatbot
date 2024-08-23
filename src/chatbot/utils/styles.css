@@ -86,15 +86,17 @@
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+  width: 234px;
 }
 
 /* Employee List */
 .employeeList {
   display: flex;
-  align-items: center;
+  justify-content: space-evenly;
   cursor: pointer;
   margin-right: 10px;
   padding: 5px;
+  font-size: 12px;
   text-align: left;
   border-bottom: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -179,7 +181,7 @@
 
 .labels {
   text-align: left;
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
 .data {
@@ -287,4 +289,15 @@ p {
 .select-item:hover,
 .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+  border: 1px solid #007BFF;
+  margin: 8px;
+  background-color: #caf3e9;
+  border-radius: 2px;
+}
+
+.react-chatbot-kit-chat-btn-send-icon{
+  fill: #298bf4;
 }

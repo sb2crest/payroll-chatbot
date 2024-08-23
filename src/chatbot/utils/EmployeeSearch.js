@@ -3,10 +3,7 @@ import axios from "axios";
 import EmployeeDetails from "./EmployeeDetails";
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.css";
-import ActionProvider from "../ActionProvider";
 import CustomSelect from "./CustomSelect";
-
-const actionProvider = new ActionProvider();
 
 const EmployeeSearch = ({ searchType, actionProvider }) => {
   const [firstName, setFirstName] = useState("");
@@ -17,11 +14,10 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
   const [employeeData, setEmployeeData] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [newWorkingHours, setNewWorkingHours] = useState({
+    managerUniqueId: "",
     startDate: null,
     endDate: null,
-    employeeWorkHours: {
-      dailyCompanyWorkingHours: "8",
-    },
+    defaultWorkingHours: "",
   });
   const [error, setError] = useState("");
   const [updateMessage, setUpdateMessage] = useState("");
@@ -36,40 +32,27 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
     const { name, value } = e.target;
     setNewWorkingHours((prev) => ({
       ...prev,
-      employeeWorkHours: {
-        ...prev.employeeWorkHours,
-        [name]: value,
-      },
+      [name]: value,
     }));
   };
 
-  const handleDateChange = (date, name) => {
-    setNewWorkingHours((prev) => ({
-      ...prev,
-      [name]: date ? date.toISOString().split("T")[0] : null,
-    }));
-  };
-
-  const fetchEmployeeData = async (endpoint, payload) => {
+  const fetchEmployee = async (url, params) => {
     setLoading(true);
     try {
-      const response = await axios.post(endpoint, payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const employees = response.data;
+      const response = await axios.get(url, { params });
+      const employees = Array.isArray(response.data)
+        ? response.data
+        : [response.data];
       setEmployeeData(employees);
+      setSelectedEmployee(employees.length === 1 ? employees[0] : null);
       setError("");
-      setUpdateMessage("");
-
-      if (employees.length === 1) {
-        setSelectedEmployee(employees[0]); 
-      } else {
-        setSelectedEmployee(null);
-      }
-    } catch (err) {
-      setError("Error fetching employee data. Please check the search criteria and try again.");
+    } catch (error) {
+      let errorMessage = "Error fetching employee data. Please try again.";
+      if (error.response && error.response.data && error.response.data[0].message) {
+        errorMessage = error.response.data[0].message;
+      }else if(error.response.data)
+        errorMessage=error.response.data;
+      setError(errorMessage);
       setEmployeeData([]);
       setSelectedEmployee(null);
     } finally {
@@ -77,52 +60,44 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
     }
   };
 
-  const handleSearchEmployee = () => {
+  const fetchEmployeeByName = async (url, payload) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(url, payload);
+      const employees = Array.isArray(response.data)
+        ? response.data
+        : [response.data];
+      setEmployeeData(employees);
+      setSelectedEmployee(employees.length === 1 ? employees[0] : null);
+      setError("");
+    } catch (error) {
+      let errorMessage = "Error fetching employee data. Please try again.";
+      console.log(error);
+      
+      // if (error.response && error.response.data && error.response.data[0].message) {
+      //   errorMessage = error.response.data[0].message;
+      // }else if(error.response.data)
+      //   errorMessage=error.response.data;
+      setError(errorMessage);
+      setEmployeeData([]);
+      setSelectedEmployee(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearchEmployeeByName = () => {
     const payload = { firstName, lastName };
     if (searchOption && searchValue) {
-      payload[optionMappings[searchOption]] = searchValue; 
+      payload[optionMappings[searchOption]] = searchValue;
     }
-    fetchEmployeeData("/api/payrollManager/findEmployee", payload);
+    fetchEmployeeByName("/api/payrollManager/findEmployee", payload);
   };
 
-  const handleGetEmployeeById = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`/api/payrollManager/manager/MGR4/employee/${employeeId}`);
-      const employee = response.data;
-      setEmployeeData([employee]);
-      setError("");
-      setUpdateMessage("");
-      setSelectedEmployee(employee);
-    } catch (err) {
-      setError("Error fetching employee data. Please check the ID and try again.");
-      setEmployeeData([]);
-      setSelectedEmployee(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUpdateWorkingHours = async () => {
-    try {
-      await axios.post("api/payrollManager/manager/addWorkHoursRange", {
-        managerUniqueId: "MGR4",
-        employeeUniqueId: selectedEmployee.employeeUniqueId,
-        startDate: newWorkingHours.startDate,
-        endDate: newWorkingHours.endDate,
-        employeeWorkHours: {
-          dailyCompanyWorkingHours: parseFloat(newWorkingHours.employeeWorkHours.dailyCompanyWorkingHours),
-        },
-      });
-      setUpdateMessage("Working hours updated successfully.");
-      setError("");
-      setEmployeeData([]);
-      setSelectedEmployee(null);
-      actionProvider.handleAfterSuccess();
-    } catch (err) {
-      setError("Error updating working hours. Please try again.");
-      setUpdateMessage("");
-    }
+  const handleGetEmployeeById = () => {
+    fetchEmployee("/api/payrollEmployee/findEmployeeById", {
+      employeeUniqueId: employeeId,
+    });
   };
 
   const handleSelectEmployee = (employee) => {
@@ -141,22 +116,26 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
         {searchType === "name" && (
           <>
             <div className="inputGroup">
-              <input
-                type="text"
-                value={firstName}
-                onChange={handleFirstNameChange}
-                placeholder="Enter First Name"
-                className="input"
-              />
-              <input
-                type="text"
-                value={lastName}
-                onChange={handleLastNameChange}
-                placeholder="Enter Last Name"
-                className="input"
-              />
+              <div className="nameFields" style={{ display: "flex" }}>
+                <input
+                  style={{ textAlign: "center" }}
+                  type="text"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                  placeholder="First Name"
+                  className="input"
+                />
+                <input
+                  style={{ textAlign: "center" }}
+                  type="text"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                  placeholder="Last Name"
+                  className="input"
+                />
+              </div>
             </div>
-            <div className="inputGroup" style={{ marginTop: '6px' }}>
+            <div className="inputGroup" style={{ marginTop: "6px" }}>
               <CustomSelect
                 options={["Email", "PhoneNumber", "SINNumber"]}
                 value={searchOption}
@@ -169,10 +148,11 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
                 onChange={handleSearchValueChange}
                 placeholder={`${searchOption}`}
                 className="input"
+                style={{marginBottom:'4px'}}
                 disabled={!searchOption}
               />
             </div>
-            <button onClick={handleSearchEmployee} className="button">
+            <button onClick={handleSearchEmployeeByName} className="button">
               Get Employee
             </button>
           </>
@@ -185,6 +165,7 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
               onChange={handleIdChange}
               placeholder="Enter Employee ID"
               className="input"
+              style={{marginBottom:'4px'}}
             />
             <button onClick={handleGetEmployeeById} className="button">
               Get Employee
@@ -205,7 +186,8 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
                   onClick={() => handleSelectEmployee(employee)}
                   className="employeeList"
                 >
-                  {employee.firstName} {employee.lastName} (ID: {employee.employeeUniqueId})
+                  {employee.firstName} {employee.lastName} (ID:{" "}
+                  {employee.employeeUniqueId})
                 </li>
               ))}
             </ul>
@@ -215,9 +197,12 @@ const EmployeeSearch = ({ searchType, actionProvider }) => {
           <EmployeeDetails
             employee={selectedEmployee}
             newWorkingHours={newWorkingHours}
-            handleDateChange={handleDateChange}
             handleWorkingHoursChange={handleWorkingHoursChange}
-            handleUpdateWorkingHours={handleUpdateWorkingHours}
+            setError={setError}
+            setUpdateMessage={setUpdateMessage}
+            setEmployeeData={setEmployeeData}
+            setSelectedEmployee={setSelectedEmployee}
+            actionProvider={actionProvider}
           />
         )}
         {updateMessage && <div className="success">{updateMessage}</div>}
